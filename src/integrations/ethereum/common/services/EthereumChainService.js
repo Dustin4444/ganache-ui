@@ -93,6 +93,29 @@ export default class EthereumChainService extends EventEmitter {
     }
   }
 
+  async connectToExistingServer(url) {
+    if (this._child) {
+      return new Promise((resolve, reject) => {
+        const handleServerStarted = () => {
+          this.removeListener("error", handleServerError);
+          resolve();
+        };
+        const handleServerError = (e) => {
+          this.removeListener("server-started-data", handleServerStarted);
+          reject(e);
+        };
+        this.once("server-started-data", handleServerStarted);
+        this.once("error", handleServerError);
+        this._child.send({
+          type: "connect-to-existing-server",
+          data: { url },
+        });
+      });
+    } else {
+      throw new Error("Can't connect to existing server. Process not started.");
+    }
+  }
+
   stopServer() {
     if (this._child && this._child.connected) {
       return new Promise(resolve => {
