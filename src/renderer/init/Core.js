@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
 import { replace } from "connected-react-router";
 
-import { setRPCProviderUrl } from "../../integrations/ethereum/common/redux/web3/actions";
+import { setRPCProviderUrl, connectToExistingServer } from "../../integrations/ethereum/common/redux/web3/actions";
 
 import { createLotusInstance, setLotusInstance, setLotusSchema, SET_LOTUS_SCHEMA } from "../../integrations/filecoin/common/redux/lotus/actions";
 
@@ -164,6 +164,9 @@ export function initCore(store) {
     store.dispatch(setKeyData(data.mnemonic, data.hdPath, data.privateKeys));
   });
 
+  ipcRenderer.on("connect-to-existing-server", (event, url) => {
+    store.dispatch(connectToExistingServer(url));
+  });
 
   /**
    * Filecoin IPC Handlers

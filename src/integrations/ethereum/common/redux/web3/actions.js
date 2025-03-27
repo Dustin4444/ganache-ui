@@ -16,3 +16,12 @@ export function setRPCProviderUrl(url) {
     dispatch(setWeb3Instance(web3Instance));
   };
 }
+
+export const CONNECT_TO_EXISTING_SERVER = `${prefix}/CONNECT_TO_EXISTING_SERVER`;
+export function connectToExistingServer(url) {
+  return function(dispatch, getState) {
+    const provider = new ReduxWeb3Provider(url, dispatch, getState);
+    const web3Instance = new Web3(provider);
+    dispatch(setWeb3Instance(web3Instance));
+  };
+}

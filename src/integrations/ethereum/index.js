@@ -98,6 +98,15 @@ class Ethereum extends Integrations {
         }
       },
     );
+
+    this.onIpc("connect-to-existing-server", async (event, url) => {
+      try {
+        await this.chain.connectToExistingServer(url);
+        this.send("server-started");
+      } catch (e) {
+        this.send(SET_SYSTEM_ERROR, e);
+      }
+    });
   }
 
   async _listenToTruffle() {
