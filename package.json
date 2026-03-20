@@ -125,7 +125,7 @@
     "electron-notarize": "1.0.0",
     "electron-updater": "4.3.8",
     "electron-webpack": "^2.8.2",
-    "eslint": "^6.3.0",
+    "eslint": "^10.0.3",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-prettier": "^3.1.0",
